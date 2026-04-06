@@ -1,9 +1,10 @@
 from services import pokeapi
 from models.pokemon import Pokemon
 from models.team import Team
+from services import openai
 
 team_obj = Team()
-while len(team_obj) < 6:
+while len(team_obj) < 3:
     poke_name = input("Write the pokemon name: ")
 
     poke_json = pokeapi.get_pokemon(poke_name)
@@ -17,5 +18,4 @@ while len(team_obj) < 6:
         except ValueError as e:
             print(e)
 
-
-print(team_obj)
+print(gemini.analyze_team(team_obj))
