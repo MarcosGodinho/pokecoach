@@ -1,7 +1,7 @@
 from services import pokeapi
 from models.pokemon import Pokemon
 from models.team import Team
-from services import openai
+from services import gemini
 
 team_obj = Team()
 while len(team_obj) < 3:
@@ -18,4 +18,5 @@ while len(team_obj) < 3:
         except ValueError as e:
             print(e)
 
-print(gemini.analyze_team(team_obj))
+#print(gemini.analyze_team(team_obj))
+#print(gemini.suggest_member_team(team_obj))
