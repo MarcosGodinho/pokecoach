@@ -1,26 +1,33 @@
-MAX_LENGHT = 6
+from __future__ import annotations
 
+from dataclasses import dataclass, field
+
+from models.pokemon import Pokemon
+
+
+@dataclass(slots=True)
 class Team:
+    max_length: int = 6
+    pokemons: list[Pokemon] = field(default_factory=list)
 
-    def __init__(self):
-        self.pokemons = []
+    def add_pokemon(self, pokemon: Pokemon) -> None:
+        if len(self.pokemons) >= self.max_length:
+            raise ValueError(f"Team already with {self.max_length} members.")
+        self.pokemons.append(pokemon)
 
-    def add_pokemon(self, pokemon):
-        if len(self.pokemons) < MAX_LENGHT:
-            self.pokemons.append(pokemon)
-            return
-        else:
-            raise ValueError("Team already with 6 members.")
+    def add_from_api(self, pokemon_data: dict) -> None:
+        self.add_pokemon(Pokemon.from_api(pokemon_data))
 
+    def remove_pokemon(self, pokemon: Pokemon) -> None:
+        if pokemon not in self.pokemons:
+            raise ValueError("Pokemon not in the team.")
+        self.pokemons.remove(pokemon)
 
-    def remove_pokemon(self, pokemon):
-        if pokemon in self.pokemons:
-            self.pokemons.remove(pokemon)
-        else:
-            raise ValueError("Pokemons not in the team.")
-
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.pokemons)
 
-    def __str__(self):
-        return "\n".join(str(p) for p in self.pokemons)
+    def to_prompt_lines(self) -> list[str]:
+        return [p.to_prompt_line() for p in self.pokemons]
+
+    def __str__(self) -> str:
+        return "\n".join(self.to_prompt_lines())
