@@ -1,0 +1,49 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PokeCoach</title>
+    <link rel="stylesheet" href="{% static 'ui/app.css' %}" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="card">
+        <header class="header">
+          <div class="brand">
+            <div class="dot"></div>
+            <div>
+              <div class="title">PokeCoach</div>
+              <div class="subtitle">Build a team. Get suggestions.</div>
+            </div>
+          </div>
+          <div class="status" id="status">Loading Pokemon list...</div>
+        </header>
+
+        <div class="team" id="team"></div>
+
+        <div class="actions">
+          <button class="btn" id="btnSuggest" disabled>Suggest</button>
+          <button class="btn" id="btnAnalyze" disabled>Analyze</button>
+          <button class="btn ghost" id="btnClear" disabled>Clear</button>
+        </div>
+
+        <section class="result">
+          <div class="result-title">Result</div>
+          <div class="result-meta" id="resultMeta"></div>
+          <div class="result-grid" id="resultGrid"></div>
+          <details class="raw">
+            <summary>Raw JSON</summary>
+            <pre class="result-raw" id="resultRaw" aria-label="raw result"></pre>
+          </details>
+        </section>
+      </section>
+    </main>
+
+    <script>
+      window.__CSRF__ = "{{ csrf_token }}";
+    </script>
+    <script src="{% static 'ui/app.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+### Health
+GET http://127.0.0.1:5000/health
+
+### Get Pokemon (PokeAPI proxy)
+GET http://127.0.0.1:5000/pokemon/pikachu
+
+### Analyze team (Gemini)
+POST http://127.0.0.1:5000/analyze
+Content-Type: application/json
+
+{
+  "team": ["pikachu", "charizard"]
+}
+
+### Suggest members (Gemini)
+POST http://127.0.0.1:5000/suggest
+Content-Type: application/json
+
+{
+  "team": ["pikachu", "charizard"]
+}
+
